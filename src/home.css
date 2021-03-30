@@ -9,6 +9,7 @@
   flex-direction: row;
   height: 8%;
   justify-content: space-between;
+  align-items: center;
 }
 
 .humbarger-button, .inuput-button {

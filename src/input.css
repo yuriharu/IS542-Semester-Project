@@ -1,0 +1,33 @@
+.Input {
+    background-color: #90CCF4;
+    height: 100vh;
+  }
+
+.menu-bar {
+    align-items: center;
+    background-color: #ECECEC;
+    display: flex;
+    flex-direction: row;
+    height: 8%;
+    justify-content: space-between;
+}
+
+.humbarger-button, .home-button {
+    padding: 4%;
+}
+
+.items {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-button {
+    margin-left: auto;
+    padding: 4%;
+}
+
+#submit-button {
+    background-color: #F3D250;
+    font-weight: bold;
+}
