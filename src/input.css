@@ -1,3 +1,7 @@
+body {
+    text-align: center;
+}
+
 .Input {
     background-color: #90CCF4;
     height: 100vh;
@@ -27,7 +31,19 @@
     padding: 4%;
 }
 
+form {
+    display: inline-block;
+}
+
+.item {
+    align-items: 'center';
+    background-color: #ECECEC;
+    border-radius: 15px;
+    width: 85%;
+}
+
 #submit-button {
     background-color: #F3D250;
     font-weight: bold;
+    margin: 2em;
 }

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import Home from './home';
-import Input from './input';
+import ItemInput from './input';
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <Home /> */}
-    <Input />
+    <ItemInput />
   </React.StrictMode>,
   document.getElementById('root')
 );
