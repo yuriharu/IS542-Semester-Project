@@ -34,16 +34,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ItemList() {
+function ItemList(keyName) {
+  // console.log(keyName);
   const classes = useStyles();
+  const [name, setName] = React.useState('');
+  const [price, setPrice] = React.useState(0);
   const [pay, setPay] = React.useState('');
   const [cat, setCat] = React.useState('');
 
+  const handleChangeName = (event) => {
+    setName(event.target.value);
+    console.log({name});
+  };
+  const handleChangePrice = (event) => {
+    setPrice(event.target.value);
+    console.log({price});
+  };
   const handleChangePay = (event) => {
     setPay(event.target.value);
+    console.log({pay});
   };
   const handleChangeCat = (event) => {
     setCat(event.target.value);
+    console.log(event.target.value);
   };
 
   return (
@@ -55,6 +68,7 @@ function ItemList() {
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
+          onChange={handleChangeName}
         />
         <TextField
           label="値段"
@@ -63,6 +77,7 @@ function ItemList() {
           InputProps={{
             startAdornment: <InputAdornment position="start">￥</InputAdornment>,
           }}
+          onChange={handleChangePrice}
         />
         <FormControl className={classes.formControl}>
           <InputLabel id="pay-select">Pay種類</InputLabel>
@@ -72,9 +87,9 @@ function ItemList() {
             value={pay}
             onChange={handleChangePay}
           >
-            <MenuItem value={10}>PayPay</MenuItem>
-            <MenuItem value={20}>LINE Pay</MenuItem>
-            <MenuItem value={30}>au Pay</MenuItem>
+            <MenuItem value={"paypay"}>PayPay</MenuItem>
+            <MenuItem value={"linepay"}>LINE Pay</MenuItem>
+            <MenuItem value={"aupay"}>au Pay</MenuItem>
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -85,9 +100,9 @@ function ItemList() {
             value={cat}
             onChange={handleChangeCat}
           >
-            <MenuItem value={10}>食品</MenuItem>
-            <MenuItem value={20}>美容</MenuItem>
-            <MenuItem value={30}>その他</MenuItem>
+            <MenuItem value={"food"}>食品</MenuItem>
+            <MenuItem value={"beauty"}>美容</MenuItem>
+            <MenuItem value={"other"}>その他</MenuItem>
           </Select>
         </FormControl>
       </form>
@@ -95,16 +110,25 @@ function ItemList() {
 }
 
 function Content() {
+  const [shopped, setShopped] = React.useState([]);
 
-    return (
-      <div className="items">
-        <div className="add-button"><FontAwesomeIcon icon={faPlusCircle} size="2x"/></div>
-        <ItemList />
-        <Button variant="contained" id="submit-button">
-            完了
-        </Button>
+  function add(item) {
+    setShopped(current => [...current, item]);
+  }
+
+  console.log({shopped});
+
+  return (
+    <div className="content">
+      <div className="add-button">
+        <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => add(<ItemList />)}/>
       </div>
-    );
+      {shopped}
+      <Button variant="contained" id="submit-button">
+          完了
+      </Button>
+    </div>
+  );
 }
 
 function ItemInput() {

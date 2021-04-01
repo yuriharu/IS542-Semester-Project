@@ -20,7 +20,7 @@ body {
     padding: 4%;
 }
 
-.items {
+.content {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -39,6 +39,7 @@ form {
     align-items: 'center';
     background-color: #ECECEC;
     border-radius: 15px;
+    margin: 1rem 0 0 0;
     width: 85%;
 }
 
