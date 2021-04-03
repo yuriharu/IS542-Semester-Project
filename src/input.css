@@ -20,7 +20,7 @@ body {
     padding: 4%;
 }
 
-.content {
+/* .content {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@ body {
 .add-button {
     margin-left: auto;
     padding: 4%;
-}
+} */
 
 form {
     display: inline-block;

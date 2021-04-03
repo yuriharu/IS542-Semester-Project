@@ -2,7 +2,7 @@ import './input.css';
 import clsx from 'clsx';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { ContactlessOutlined } from '@material-ui/icons';
 
 function MenuBar() {
     return (
@@ -34,30 +35,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ItemList(keyName) {
+function Item(keyName) {
   // console.log(keyName);
   const classes = useStyles();
   const [name, setName] = React.useState('');
-  const [price, setPrice] = React.useState(0);
+  const [price, setPrice] = React.useState('');
   const [pay, setPay] = React.useState('');
   const [cat, setCat] = React.useState('');
 
   const handleChangeName = (event) => {
     setName(event.target.value);
-    console.log({name});
   };
   const handleChangePrice = (event) => {
     setPrice(event.target.value);
-    console.log({price});
   };
   const handleChangePay = (event) => {
     setPay(event.target.value);
-    console.log({pay});
   };
   const handleChangeCat = (event) => {
     setCat(event.target.value);
-    console.log(event.target.value);
   };
+
+  const add = () => {
+    console.log(name + " was $" + price + "; " + pay + " & " + cat)
+  }
 
   return (
       <form className="item" noValidate autoComplete="off">
@@ -105,29 +106,10 @@ function ItemList(keyName) {
             <MenuItem value={"other"}>その他</MenuItem>
           </Select>
         </FormControl>
+        <Button variant="contained" id="submit-button" onClick={add}>
+          追加
+        </Button>
       </form>
-  );
-}
-
-function Content() {
-  const [shopped, setShopped] = React.useState([]);
-
-  function add(item) {
-    setShopped(current => [...current, item]);
-  }
-
-  console.log({shopped});
-
-  return (
-    <div className="content">
-      <div className="add-button">
-        <FontAwesomeIcon icon={faPlusCircle} size="2x" onClick={() => add(<ItemList />)}/>
-      </div>
-      {shopped}
-      <Button variant="contained" id="submit-button">
-          完了
-      </Button>
-    </div>
   );
 }
 
@@ -135,7 +117,7 @@ function ItemInput() {
     return (
       <div className="Input">
         <MenuBar />
-        <Content />
+        <Item />
       </div>
     );
 }
