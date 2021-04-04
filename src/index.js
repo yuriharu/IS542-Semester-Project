@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-// import Home from './home';
+import './styles/index.css';
+import Home from './home';
 import ItemInput from './input';
+import MenuBar from './navbar';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Home /> */}
-    <ItemInput />
+    <BrowserRouter>
+      <MenuBar />
+      <div className="container">
+        <Switch>
+          <Route exact path="/"><Home /></Route>
+          <Route exact path="/input"><ItemInput /></Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

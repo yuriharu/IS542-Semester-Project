@@ -1,8 +1,6 @@
-import './input.css';
+import './styles/input.css';
 import clsx from 'clsx';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faHome } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,16 +9,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { ContactlessOutlined } from '@material-ui/icons';
-
-function MenuBar() {
-    return (
-      <div className="menu-bar">
-        <div className="humbarger-button"><FontAwesomeIcon icon={faBars} /></div>
-        <div className="home-button"><FontAwesomeIcon icon={faHome} /></div>
-      </div>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -116,7 +104,6 @@ function Item(keyName) {
 function ItemInput() {
     return (
       <div className="Input">
-        <MenuBar />
         <Item />
       </div>
     );

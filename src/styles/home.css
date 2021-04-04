@@ -1,19 +1,15 @@
-.Home {
+#home {
   background-color: #F78888;
   height: 100vh;
 }
 
-.menu-bar {
-  background-color: #ECECEC;
-  display: flex;
-  flex-direction: row;
-  height: 8%;
-  justify-content: space-between;
-  align-items: center;
+.home-abled {
+  background-color: green;
+  opacity: 1;
 }
 
-.humbarger-button, .inuput-button {
-  padding: 4%;
+.home-disabled {
+  opacity: 0.9;
 }
 
 .pay {

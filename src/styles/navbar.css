@@ -1,0 +1,50 @@
+.menu-bar {
+    align-items: center;
+    background-color: #ECECEC;
+    display: flex;
+    flex-direction: row;
+    height: 8%;
+    justify-content: space-between;
+}
+
+.humbarger-button, .menu-button {
+    color: #000;
+    padding: 4%;
+}
+
+.menu-button:hover {
+    background-color: #CFCFCF;
+}
+
+.side-bar {
+    align-items: center;
+    background-color: #F78888;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    left: -40%;
+    position: fixed;
+    transition: 850ms;
+    width: 40%;
+}
+
+.side-bar.active {
+    left: 0;
+    transition: 350ms;
+    z-index: 100;
+}
+
+.close-button {
+    color: #000;
+    margin: 1rem 1rem 0 auto;
+}
+
+.bar-button {
+    color: #000;
+    margin: 2rem 0 0 0;
+    text-decoration: none;
+}
+
+.bar-button:hover {
+    font-weight: bold;
+}

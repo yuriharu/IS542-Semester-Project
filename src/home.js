@@ -1,17 +1,7 @@
-import './home.css';
+import './styles/home.css';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { faYenSign } from '@fortawesome/free-solid-svg-icons'
-
-function MenuBar() {
-  return (
-    <div className="menu-bar">
-      <div className="humbarger-button"><FontAwesomeIcon icon={faBars} /></div>
-      <div className="inuput-button"><FontAwesomeIcon icon={faYenSign} /></div>
-    </div>
-  );
-}
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 function PayItem(props) {
   return (
@@ -33,7 +23,7 @@ function Content() {
       logo: "LOGO",
       name: pays[i],
       balance: balances[i],
-      addBtn: "+"
+      addBtn: <FontAwesomeIcon icon={faPlusCircle} />
     };
     payItems.push(<PayItem obj={itemObj} key={i} />);
   }
@@ -47,8 +37,7 @@ function Content() {
 
 function Home() {
   return (
-    <div className="Home">
-      <MenuBar />
+    <div id="home" className="home-abled">
       <Content />
     </div>
   );
