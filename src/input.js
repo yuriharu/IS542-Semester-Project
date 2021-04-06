@@ -72,7 +72,7 @@ function Item(keyName) {
           <InputLabel id="pay-select">Pay種類</InputLabel>
           <Select
             labelId="pay-select"
-            id="pay"
+            id="pay-type"
             value={pay}
             onChange={handleChangePay}
           >

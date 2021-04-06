@@ -9,12 +9,9 @@ function MenuBar() {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = (show) => {
         setSidebar(show);
-        // console.log(show);
-        // console.log(sidebar);
     }
 
     useEffect(() => {
-        console.log(sidebar);
         if (sidebar) {
             document.getElementById("home").style.opacity = 0.5;
         } else {

@@ -1,5 +1,5 @@
 #home {
-  background-color: #F78888;
+  background-color: #FFF;
   height: 100vh;
 }
 
@@ -12,10 +12,16 @@
   opacity: 0.9;
 }
 
-.pay {
+.content {
+  position: relative;
+}
+
+#pay {
+  align-items: center;
+  background-color: #F78888;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
 }
 
 .pay-item {
@@ -26,4 +32,28 @@
   justify-content: space-around;
   margin: 15px 0 0 0;
   width: 85%;
+}
+
+.charge-pop {
+  background-color: #F3D250;
+  border-radius: 15px;
+  display: flex;
+  height: 30%;
+  left: -100%;
+  position: absolute;
+  top: 15%;
+  width: 70%;
+  z-index: -100;
+}
+
+.charge-pop.active {
+  left: 15%;
+  transition: 150ms;
+  z-index: 100;
+}
+
+#close-button {
+  color: #000;
+  margin: 1rem 1rem 0 auto;
+  position: relative;
 }
