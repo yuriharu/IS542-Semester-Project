@@ -38,7 +38,9 @@
   background-color: #F3D250;
   border-radius: 15px;
   display: flex;
+  flex-wrap: wrap;
   height: 30%;
+  justify-content: center;
   left: -100%;
   position: absolute;
   top: 15%;
@@ -54,6 +56,17 @@
 
 #close-button {
   color: #000;
-  margin: 1rem 1rem 0 auto;
-  position: relative;
+  flex-basis: 100%;
+  margin-top: 10px;
+  margin-left: 80%;
+}
+
+#charge-logo, #charge-name, #charge-price, #charge-button {
+  flex: 50%;
+}
+
+#charge-button {
+  background-color: #5da2d5;
+  color: #FFF;
+  font-weight: bold;
 }
