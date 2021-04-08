@@ -12,8 +12,8 @@ ReactDOM.render(
       <MenuBar />
       <div className="container">
         <Switch>
-          <Route exact path="/"><Home /></Route>
           <Route exact path="/input"><ItemInput /></Route>
+          <Route exact path="/"><Home /></Route>
         </Switch>
       </div>
     </BrowserRouter>

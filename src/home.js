@@ -1,4 +1,5 @@
 import './styles/home.css';
+import initStorage from './storageInit.js'
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,7 @@ function PayItem(props) {
     <div className="pay-item">
       <p>{props.obj.logo}</p>
       <p>{props.obj.name}</p>
-      <p>{props.obj.balance}</p>
+      <p>￥ {props.obj.balance}</p>
       <p>{props.obj.addBtn}</p>
     </div>
   );
@@ -33,12 +34,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content() {
-  let pays = ["PayPay", "LINE Pay", "au Pay", "マイカ", "WAON", "でんでん", "ICOCA", "NICOPA"]
-  let balances = ["￥2,870", "￥20", "￥870", "￥170", "￥1,330", "￥970", "￥1,570", "￥4,100"]
+  let pays = initStorage().pays;
   let payItems = [];
   const classes = useStyles();
   const [charge, setCharge] = useState("");
-  const [price, setPrice] = React.useState('');
+  const [price, setPrice] = useState("");
   const chargePay = (payName) => {
     setCharge(payName);
   }
@@ -47,7 +47,10 @@ function Content() {
   };
 
   const addCharge = () => {
-    console.log(price + " was chaged to " + charge);
+    let currentAmount = localStorage.getItem(charge);
+    let newAmount = Number(currentAmount) + Number(price);
+    localStorage.setItem(charge, String(newAmount));
+    chargePay("");
   }
 
   useEffect(() => {
@@ -62,7 +65,7 @@ function Content() {
     let itemObj = {
       logo: "LOGO",
       name: pays[i],
-      balance: balances[i],
+      balance: localStorage.getItem(pays[i]),
       addBtn: <FontAwesomeIcon icon={faPlusCircle} onClick={() => chargePay(pays[i])}/>
     };
     payItems.push(<PayItem obj={itemObj} key={i} />);

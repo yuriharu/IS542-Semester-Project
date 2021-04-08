@@ -1,4 +1,5 @@
 import './styles/input.css';
+import initStorage from './storageInit.js'
 import clsx from 'clsx';
 import React from 'react';
 import Button from '@material-ui/core/Button';
@@ -24,12 +25,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Item(keyName) {
-  // console.log(keyName);
   const classes = useStyles();
-  const [name, setName] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [pay, setPay] = React.useState('');
-  const [cat, setCat] = React.useState('');
+  const [name, setName] = React.useState("");
+  const [price, setPrice] = React.useState("");
+  const [pay, setPay] = React.useState("");
+  const [cat, setCat] = React.useState("");
+  let pays = initStorage().pays;
+  let categories = initStorage().cats;
 
   const handleChangeName = (event) => {
     setName(event.target.value);
@@ -44,9 +46,25 @@ function Item(keyName) {
     setCat(event.target.value);
   };
 
+  const resetAll = () => {
+    setName("");
+    setPrice("");
+    setPay("");
+    setCat("");
+  };
+
   const add = () => {
-    console.log(name + " was $" + price + "; " + pay + " & " + cat)
-  }
+    console.log(name + " was $" + price + "; " + pay + " & " + cat);
+    let currentPayAmt = localStorage.getItem(pay);
+    let currentCatAmt = localStorage.getItem(cat);
+    let newPayAmt = Number(currentPayAmt) - Number(price);
+    let newCatAmt = Number(currentCatAmt) + Number(price);
+    localStorage.setItem(pay, String(newPayAmt));
+    localStorage.setItem(cat, String(newCatAmt));
+    resetAll();
+  };
+
+
 
   return (
       <form className="item" noValidate autoComplete="off">
@@ -57,6 +75,7 @@ function Item(keyName) {
           InputProps={{
             startAdornment: <InputAdornment position="start"></InputAdornment>,
           }}
+          value={name}
           onChange={handleChangeName}
         />
         <TextField
@@ -66,6 +85,7 @@ function Item(keyName) {
           InputProps={{
             startAdornment: <InputAdornment position="start">￥</InputAdornment>,
           }}
+          value={price}
           onChange={handleChangePrice}
         />
         <FormControl className={classes.formControl}>
@@ -76,9 +96,9 @@ function Item(keyName) {
             value={pay}
             onChange={handleChangePay}
           >
-            <MenuItem value={"paypay"}>PayPay</MenuItem>
-            <MenuItem value={"linepay"}>LINE Pay</MenuItem>
-            <MenuItem value={"aupay"}>au Pay</MenuItem>
+            {pays.map((pay, index) =>
+              <MenuItem key={index} value={pay}>{pay}</MenuItem>
+            )}
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
@@ -89,9 +109,9 @@ function Item(keyName) {
             value={cat}
             onChange={handleChangeCat}
           >
-            <MenuItem value={"food"}>食品</MenuItem>
-            <MenuItem value={"beauty"}>美容</MenuItem>
-            <MenuItem value={"other"}>その他</MenuItem>
+            {categories.map((cat, index) =>
+              <MenuItem key={index} value={cat}>{cat}</MenuItem>
+            )}
           </Select>
         </FormControl>
         <Button variant="contained" id="submit-button" onClick={add}>
