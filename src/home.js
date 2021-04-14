@@ -16,18 +16,17 @@ import WAON from './images/WAON.png'
 import でんでん from './images/でんでん.jpg'
 import ICOCA from './images/ICOCA.jpg'
 import NICOPA from './images/NICOPA.png'
-import { Image } from '@material-ui/icons';
 
 function ImageMap(keyName) {
   const imageMap = {
-    PayPay: <img src={PayPay} alt="PayPay Logo" />,
-    LINEPay: <img src={LINEPay} alt="LINEPay Logo" />,
-    auPay: <img src={auPay} alt="auPay Logo" />,
-    マイカ: <img src={マイカ} alt="マイカ Logo" />,
-    WAON: <img src={WAON} alt="WAON Logo" />,
-    でんでん: <img src={でんでん} alt="でんでん Logo" />,
-    ICOCA: <img src={ICOCA} alt="ICOCA Logo" />,
-    NICOPA: <img src={NICOPA} alt="NICOPA Logo" />,
+    PayPay: <img src={PayPay} alt="PayPay Logo" className="logo" />,
+    LINEPay: <img src={LINEPay} alt="LINEPay Logo" className="logo" />,
+    auPay: <img src={auPay} alt="auPay Logo" className="logo" />,
+    マイカ: <img src={マイカ} alt="マイカ Logo" className="logo" />,
+    WAON: <img src={WAON} alt="WAON Logo" className="logo" />,
+    でんでん: <img src={でんでん} alt="でんでん Logo" className="logo" />,
+    ICOCA: <img src={ICOCA} alt="ICOCA Logo" className="logo" />,
+    NICOPA: <img src={NICOPA} alt="NICOPA Logo" className="logo" />,
   }
 
   if (imageMap[keyName]) {
@@ -101,6 +100,8 @@ function Content() {
     payItems.push(<PayItem obj={itemObj} key={i} />);
   }
 
+  let imageTag = ImageMap(charge.replace(" ", ""));
+
   return (
     <div className="content">
       <div id="pay">
@@ -108,19 +109,21 @@ function Content() {
       </div>
       <div className={charge ? "charge-pop active" : "charge-pop"}>
         <FontAwesomeIcon icon={faTimes} id="close-button" onClick={() => chargePay("")}/>
-        <p id="charge-logo">LOGO of {charge}</p>
-        <p id="charge-name">{charge}</p>
-        <TextField
-          id="charge-price"
-          className={clsx(classes.margin, classes.textField)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">￥</InputAdornment>,
-          }}
-          onChange={handleChangePrice}
-        />
-        <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
-          チャージ
-        </Button>
+        <div id="flex-area">
+          {imageTag}
+          <p id="charge-name">{charge}</p>
+          <TextField
+            id="charge-price"
+            className={clsx(classes.margin, classes.textField)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">￥</InputAdornment>,
+            }}
+            onChange={handleChangePrice}
+          />
+          <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+            チャージ
+          </Button>
+        </div>
       </div>
     </div>
   );

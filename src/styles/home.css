@@ -63,12 +63,17 @@
 #close-button {
   color: #000;
   flex-basis: 100%;
-  margin-top: 10px;
-  margin-left: 80%;
+  justify-content: flex-end;
+  margin: 10px 10px 0 0;
 }
 
-#charge-logo, #charge-name, #charge-price, #charge-button {
+#flex-area > .logo, #charge-name, #charge-price, #charge-button {
   flex: 50%;
+}
+
+#flex-area > img {
+  height: 40px;
+  width: 40px;
 }
 
 #charge-button {
