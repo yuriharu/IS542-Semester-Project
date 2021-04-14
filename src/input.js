@@ -1,7 +1,6 @@
 import './styles/input.css';
-import initStorage from './storageInit.js'
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,14 +23,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Item(keyName) {
+function Item() {
   const classes = useStyles();
-  const [name, setName] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [pay, setPay] = React.useState("");
-  const [cat, setCat] = React.useState("");
-  let pays = initStorage().pays;
-  let categories = initStorage().cats;
+  const [paysColl, setPaysColl] = useState();
+  const [catsColl, setCatsColl] = useState();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [pay, setPay] = useState("");
+  const [cat, setCat] = useState("");
+
+  useEffect(() => {
+    setPaysColl(window.localStorage.getItem("Pays Collection").split(","));
+    setCatsColl(window.localStorage.getItem("Cats Collection").split(","));
+  }, []);
 
   const handleChangeName = (event) => {
     setName(event.target.value);
@@ -64,60 +68,62 @@ function Item(keyName) {
     resetAll();
   };
 
-
-
   return (
-      <form className="item" noValidate autoComplete="off">
-        <TextField
-          label="アイテム名"
-          id="item-name"
-          className={clsx(classes.margin, classes.textField)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start"></InputAdornment>,
-          }}
-          value={name}
-          onChange={handleChangeName}
-        />
-        <TextField
-          label="値段"
-          id="item-price"
-          className={clsx(classes.margin, classes.textField)}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">￥</InputAdornment>,
-          }}
-          value={price}
-          onChange={handleChangePrice}
-        />
-        <FormControl className={classes.formControl}>
-          <InputLabel id="pay-select">Pay種類</InputLabel>
-          <Select
-            labelId="pay-select"
-            id="pay-type"
-            value={pay}
-            onChange={handleChangePay}
-          >
-            {pays.map((pay, index) =>
-              <MenuItem key={index} value={pay}>{pay}</MenuItem>
-            )}
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="cat-select">カテゴリー</InputLabel>
-          <Select
-            labelId="cat-select"
-            id="cat"
-            value={cat}
-            onChange={handleChangeCat}
-          >
-            {categories.map((cat, index) =>
-              <MenuItem key={index} value={cat}>{cat}</MenuItem>
-            )}
-          </Select>
-        </FormControl>
-        <Button variant="contained" id="submit-button" onClick={add}>
-          追加
-        </Button>
-      </form>
+    <div>
+      {paysColl ?
+        <form className="item" noValidate autoComplete="off">
+          <TextField
+            label="アイテム名"
+            id="item-name"
+            className={clsx(classes.margin, classes.textField)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start"></InputAdornment>,
+            }}
+            value={name}
+            onChange={handleChangeName}
+          />
+          <TextField
+            label="値段"
+            id="item-price"
+            className={clsx(classes.margin, classes.textField)}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">￥</InputAdornment>,
+            }}
+            value={price}
+            onChange={handleChangePrice}
+          />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="pay-select">Pay種類</InputLabel>
+            <Select
+              labelId="pay-select"
+              id="pay-type"
+              value={pay}
+              onChange={handleChangePay}
+            >
+              {paysColl.map((pay, index) =>
+                <MenuItem key={index} value={pay}>{pay}</MenuItem>
+              )}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="cat-select">カテゴリー</InputLabel>
+            <Select
+              labelId="cat-select"
+              id="cat-type"
+              value={cat}
+              onChange={handleChangeCat}
+            >
+              {catsColl.map((cat, index) =>
+                <MenuItem key={index} value={cat}>{cat}</MenuItem>
+              )}
+            </Select>
+          </FormControl>
+          <Button variant="contained" id="submit-button" onClick={add}>
+            追加
+          </Button>
+        </form>
+        : <div>Loading</div>}
+    </div>
   );
 }
 

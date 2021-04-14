@@ -24,7 +24,7 @@ body {
     width: 85%;
 }
 
-#item-name, #item-price, #pay-type, #cat, #submit-button {
+#item-name, #item-price, #pay-type, #cat-type, #submit-button {
     flex: 0 1 50%;
 }
 

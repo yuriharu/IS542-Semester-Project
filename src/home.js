@@ -63,13 +63,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Content() {
-  let pays = initStorage().pays;
+  let pays = window.localStorage.getItem("Pays Collection").split(",");
   let payItems = [];
   const classes = useStyles();
   const [charge, setCharge] = useState("");
   const [price, setPrice] = useState("");
   const chargePay = (payName) => {
     setCharge(payName);
+  }
+  const chargePrice = (priceAmt) => {
+    setPrice(priceAmt);
   }
   const handleChangePrice = (event) => {
     setPrice(event.target.value);
@@ -80,6 +83,8 @@ function Content() {
     let newAmount = Number(currentAmount) + Number(price);
     localStorage.setItem(charge, String(newAmount));
     chargePay("");
+    chargePrice("");
+    console.log(price)
   }
 
   useEffect(() => {
@@ -118,6 +123,7 @@ function Content() {
             InputProps={{
               startAdornment: <InputAdornment position="start">￥</InputAdornment>,
             }}
+            value={price}
             onChange={handleChangePrice}
           />
           <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
@@ -130,6 +136,8 @@ function Content() {
 }
 
 function Home() {
+  initStorage();
+
   return (
     <div id="home" className="home-abled">
       <Content />
