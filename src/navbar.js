@@ -13,7 +13,6 @@ function MenuBar() {
 
     useEffect(() => {
         let homeDiv = document.getElementById("home");
-        console.log(homeDiv)
         if (sidebar && homeDiv !== null) {
             homeDiv.style.opacity = 0.5;
         } else if (!sidebar && homeDiv !== null) {

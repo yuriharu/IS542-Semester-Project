@@ -5,39 +5,33 @@ body {
 
 .Input {
     background-color: #90CCF4;
-    height: 100vh;
-  }
-
-/* .content {
-    align-items: center;
     display: flex;
-    flex-direction: column;
-}
-
-.add-button {
-    margin-left: auto;
-    padding: 4%;
-} */
-
-form {
-    display: inline-block;
-}
+    height: 100vh;
+    justify-content: center;
+  }
 
 .item {
     align-items: 'center';
     background-color: #ECECEC;
     border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
     height: 30%;
+    justify-content: center;
     margin: 3rem 0 0 0;
     min-height: 200px;
     position: relative;
     width: 85%;
 }
 
+#item-name, #item-price, #pay-type, #cat, #submit-button {
+    flex: 0 1 50%;
+}
+
 #submit-button {
     background-color: #F3D250;
     font-weight: bold;
-    left: 46%;
-    position: absolute;
-    bottom: 2rem;
+    max-height: 50px;
+    /* max-width: 200px; */
+    margin-bottom: 1rem;
 }
