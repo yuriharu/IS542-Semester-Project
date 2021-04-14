@@ -61,7 +61,7 @@ function MenuBar() {
                 </NavLink>
                 <NavLink
                     className="bar-button"
-                    to="/"
+                    to="/setting"
                     onClick={() => showSidebar(false)}
                     exact
                 >

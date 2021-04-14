@@ -95,7 +95,7 @@ function Content() {
     }
   }, [charge]);
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < pays.length; i++) {
     let itemObj = {
       logo: pays[i].replace(" ", ""),
       name: pays[i],
