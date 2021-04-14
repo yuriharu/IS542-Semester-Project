@@ -8,11 +8,41 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import clsx from 'clsx';
+import PayPay from './images/PayPay.jpg'
+import LINEPay from './images/LINEPay.png'
+import auPay from './images/auPay.png'
+import マイカ from './images/マイカ.jpg'
+import WAON from './images/WAON.png'
+import でんでん from './images/でんでん.jpg'
+import ICOCA from './images/ICOCA.jpg'
+import NICOPA from './images/NICOPA.png'
+import { Image } from '@material-ui/icons';
+
+function ImageMap(keyName) {
+  const imageMap = {
+    PayPay: <img src={PayPay} alt="PayPay Logo" />,
+    LINEPay: <img src={LINEPay} alt="LINEPay Logo" />,
+    auPay: <img src={auPay} alt="auPay Logo" />,
+    マイカ: <img src={マイカ} alt="マイカ Logo" />,
+    WAON: <img src={WAON} alt="WAON Logo" />,
+    でんでん: <img src={でんでん} alt="でんでん Logo" />,
+    ICOCA: <img src={ICOCA} alt="ICOCA Logo" />,
+    NICOPA: <img src={NICOPA} alt="NICOPA Logo" />,
+  }
+
+  if (imageMap[keyName]) {
+    return imageMap[keyName]
+  } else {
+    return <p>LOGO</p>
+  }
+}
 
 function PayItem(props) {
+  let imageTag = ImageMap(props.obj.logo);
+
   return (
     <div className="pay-item">
-      <p>{props.obj.logo}</p>
+      {imageTag}
       <p>{props.obj.name}</p>
       <p>￥ {props.obj.balance}</p>
       <p>{props.obj.addBtn}</p>
@@ -63,7 +93,7 @@ function Content() {
 
   for (let i = 0; i < 8; i++) {
     let itemObj = {
-      logo: "LOGO",
+      logo: pays[i].replace(" ", ""),
       name: pays[i],
       balance: localStorage.getItem(pays[i]),
       addBtn: <FontAwesomeIcon icon={faPlusCircle} onClick={() => chargePay(pays[i])}/>

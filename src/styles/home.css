@@ -25,6 +25,7 @@
 }
 
 .pay-item {
+  align-items: center;
   background-color: #ECECEC;
   border-radius: 15px;
   display: flex;
@@ -32,6 +33,11 @@
   justify-content: space-around;
   margin: 15px 0 0 0;
   width: 85%;
+}
+
+.pay-item > img {
+  height: 40px;
+  width: 40px;
 }
 
 .charge-pop {
