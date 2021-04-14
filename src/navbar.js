@@ -12,10 +12,12 @@ function MenuBar() {
     }
 
     useEffect(() => {
-        if (sidebar) {
-            document.getElementById("home").style.opacity = 0.5;
-        } else {
-            document.getElementById("home").style.opacity = 1;
+        let homeDiv = document.getElementById("home");
+        console.log(homeDiv)
+        if (sidebar && homeDiv !== null) {
+            homeDiv.style.opacity = 0.5;
+        } else if (!sidebar && homeDiv !== null) {
+            homeDiv.style.opacity = 1;
         }
     }, [sidebar]);
 
@@ -41,19 +43,19 @@ function MenuBar() {
                 </NavLink>
             </div>
             <nav className={sidebar ? "side-bar active" : "side-bar"}>
-                <Link className="close-button" to="/">
-                    <FontAwesomeIcon icon={faTimes} onClick={() => showSidebar(false)}/>
-                </Link>
+                <FontAwesomeIcon className="close-button" icon={faTimes} onClick={() => showSidebar(false)}/>
                 <NavLink
                     className="bar-button"
                     to="/"
+                    onClick={() => showSidebar(false)}
                     exact
                 >
                     <FontAwesomeIcon icon={faChartBar} /> データ分析
                 </NavLink>
                 <NavLink
                     className="bar-button"
-                    to="/"
+                    to="/input"
+                    onClick={() => showSidebar(false)}
                     exact
                 >
                     <FontAwesomeIcon icon={faYenSign} /> 出費入力
@@ -61,6 +63,7 @@ function MenuBar() {
                 <NavLink
                     className="bar-button"
                     to="/"
+                    onClick={() => showSidebar(false)}
                     exact
                 >
                     <FontAwesomeIcon icon={faCog} /> 設定
