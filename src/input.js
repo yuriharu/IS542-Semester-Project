@@ -133,7 +133,7 @@ function Item() {
 
 function ItemInput() {
     return (
-      <div className="Input">
+      <div id="Input">
         <Item />
       </div>
     );

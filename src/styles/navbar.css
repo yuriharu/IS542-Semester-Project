@@ -24,8 +24,9 @@
     height: 100vh;
     left: -40%;
     position: fixed;
-    transition: 850ms;
+    transition: 350ms;
     width: 40%;
+    z-index: 100;
 }
 
 .side-bar.active {

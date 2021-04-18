@@ -1,5 +1,5 @@
 /***********  REACT ***********************************/
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
@@ -17,20 +17,21 @@ function MenuBar() {
     }
 
     useEffect(() => {
-        let homeDiv = document.getElementById("home");
-        if (sidebar && homeDiv !== null) {
-            homeDiv.style.opacity = 0.5;
-        } else if (!sidebar && homeDiv !== null) {
-            homeDiv.style.opacity = 1;
+        let targetDiv = document.getElementById("container");
+
+        if (sidebar && targetDiv !== null) {
+            targetDiv.style.opacity = 0.5;
+        } else if (!sidebar && targetDiv !== null) {
+            targetDiv.style.opacity = 1;
         }
     }, [sidebar]);
 
     return (
         <div>
             <div className="menu-bar">
-                <Link className="humbarger-button" to="/">
+                <div className="humbarger-button">
                     <FontAwesomeIcon icon={faBars} onClick={() => showSidebar(true)} />
-                </Link>
+                </div>
                 <NavLink
                     className="menu-button"
                     to="/"

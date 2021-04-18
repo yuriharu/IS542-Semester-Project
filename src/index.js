@@ -14,7 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <MenuBar />
-      <div className="container">
+      <div id="container">
         <Switch>
           <Route exact path="/input"><ItemInput /></Route>
           <Route exact path="/setting"><Setting /></Route>
