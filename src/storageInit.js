@@ -1,5 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-
 const defaultPaysCollection = "PayPay,LINE Pay,au Pay,マイカ,WAON,でんでん,ICOCA,NICOPA";
 const defaultCatsCollection = "食品,美容,その他";
 

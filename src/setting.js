@@ -1,18 +1,25 @@
-import './styles/setting.css';
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
+/***********  REACT ***********************************/
+import React, { useState, useEffect } from "react";
+import clsx from "clsx";
+
+/***********  COMPONENT *******************************/
+import "./styles/setting.css";
+
+/***********  FONTAWESONE *****************************/
+import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+/***********  MATERIAL UI *****************************/
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
     },
     textField: {
-      width: '40%',
+      width: "40%",
     }
 }));
 
@@ -256,4 +263,4 @@ function Setting() {
     );
 }
 
-  export default Setting;
+export default Setting;

@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+/***********  REACT ***********************************/
 import { NavLink, Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faYenSign, faHome, faChartBar, faCog, faTimes} from '@fortawesome/free-solid-svg-icons'
-// import { IconContext } from 'react-icons'; //have to install?
-import './styles/navbar.css';
+import React, { useState, useEffect } from "react";
+
+/***********  COMPONENT *******************************/
+import "./styles/navbar.css";
+
+/***********  FONTAWESONE *****************************/
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faYenSign, faHome, faChartBar, faCog, faTimes}
+    from "@fortawesome/free-solid-svg-icons";
 
 function MenuBar() {
     const [sidebar, setSidebar] = useState(false);
@@ -24,7 +29,7 @@ function MenuBar() {
         <div>
             <div className="menu-bar">
                 <Link className="humbarger-button" to="/">
-                    <FontAwesomeIcon icon={faBars} onClick={() => showSidebar(true)}/>
+                    <FontAwesomeIcon icon={faBars} onClick={() => showSidebar(true)} />
                 </Link>
                 <NavLink
                     className="menu-button"
@@ -42,7 +47,7 @@ function MenuBar() {
                 </NavLink>
             </div>
             <nav className={sidebar ? "side-bar active" : "side-bar"}>
-                <FontAwesomeIcon className="close-button" icon={faTimes} onClick={() => showSidebar(false)}/>
+                <FontAwesomeIcon className="close-button" icon={faTimes} onClick={() => showSidebar(false)} />
                 <NavLink
                     className="bar-button"
                     to="/"

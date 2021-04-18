@@ -1,25 +1,30 @@
-import './styles/input.css';
-import clsx from 'clsx';
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+/***********  REACT ***********************************/
+import React, { useState, useEffect } from "react";
+import clsx from "clsx";
+
+/***********  COMPONENT *******************************/
+import "./styles/input.css";
+
+/***********  MATERIAL UI *****************************/
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import InputLabel from "@material-ui/core/InputLabel";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
   textField: {
-    width: '40%',
+    width: "40%",
   },
   formControl: {
     margin: theme.spacing(1),
-    width: '40%',
+    width: "40%",
   },
 }));
 
@@ -58,7 +63,6 @@ function Item() {
   };
 
   const add = () => {
-    console.log(name + " was $" + price + "; " + pay + " & " + cat);
     let currentPayAmt = localStorage.getItem(pay);
     let currentCatAmt = localStorage.getItem(cat);
     let newPayAmt = Number(currentPayAmt) - Number(price);

@@ -1,11 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/index.css';
-import Home from './home';
-import ItemInput from './input';
-import MenuBar from './navbar';
-import Setting from './setting'
+/***********  REACT ***********************************/
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+/***********  COMPONENT *******************************/
+import Home from "./home.js";
+import ItemInput from "./input.js";
+import MenuBar from "./navbar.js";
+import Setting from "./setting.js";
+import "./styles/index.css";
 
 ReactDOM.render(
   <React.StrictMode>

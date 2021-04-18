@@ -1,21 +1,28 @@
-import './styles/home.css';
-import initStorage from './storageInit.js'
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import clsx from 'clsx';
-import PayPay from './images/PayPay.jpg'
-import LINEPay from './images/LINEPay.png'
-import auPay from './images/auPay.png'
-import マイカ from './images/マイカ.jpg'
-import WAON from './images/WAON.png'
-import でんでん from './images/でんでん.jpg'
-import ICOCA from './images/ICOCA.jpg'
-import NICOPA from './images/NICOPA.png'
+/***********  REACT ***********************************/
+import clsx from "clsx";
+import React, { useState, useEffect } from "react";
+
+/***********  COMPONENT *******************************/
+import initStorage from "./storageInit.js";
+import "./styles/home.css";
+
+/***********  MATERIAL UI *****************************/
+import Button from "@material-ui/core/Button";
+import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
+/***********  IMAGES **********************************/
+import auPay from "./images/auPay.png";
+import ICOCA from "./images/ICOCA.jpg";
+import LINEPay from "./images/LINEPay.png";
+import NICOPA from "./images/NICOPA.png";
+import PayPay from "./images/PayPay.jpg";
+import WAON from "./images/WAON.png";
+import でんでん from "./images/でんでん.jpg";
+import マイカ from "./images/マイカ.jpg";
 
 function ImageMap(keyName) {
   const imageMap = {
@@ -54,11 +61,11 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   textField: {
-    width: '40%',
+    width: "40%",
   },
   formControl: {
     margin: theme.spacing(1),
-    width: '40%',
+    width: "40%",
   },
 }));
 
@@ -84,7 +91,6 @@ function Content() {
     localStorage.setItem(charge, String(newAmount));
     chargePay("");
     chargePrice("");
-    console.log(price)
   }
 
   useEffect(() => {
@@ -126,7 +132,7 @@ function Content() {
             value={price}
             onChange={handleChangePrice}
           />
-          <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+          <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: "90px", maxHeight: "30px", minWidth: "30px", minHeight: "30px"}}>
             チャージ
           </Button>
         </div>

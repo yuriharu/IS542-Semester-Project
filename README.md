@@ -13,4 +13,4 @@ The app allows you to do the followings:<br>
     - see the remaining amount in all prepayment systems<br>
     - record items you bought<br>
     - add/delete categories and prepaid types<br>
-    - see bar graphs on how much you spend on each categories and pay type (coming soon)
+    - see bar graphs on how much you spend on each category and pay type (coming soon)
