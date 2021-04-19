@@ -268,6 +268,7 @@ function Setting() {
         <Button variant="contained" id="reset-button" onClick={resetData} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
             リセット
         </Button>
+        <br></br>
       </div>
     );
 }
