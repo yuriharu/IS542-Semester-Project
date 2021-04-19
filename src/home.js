@@ -120,9 +120,11 @@ function Content() {
       </div>
       <div className={charge ? "charge-pop active" : "charge-pop"}>
         <FontAwesomeIcon icon={faTimes} id="close-button" onClick={() => chargePay("")}/>
-        <div id="flex-area">
+        <div className="inline">
           {imageTag}
           <p id="charge-name">{charge}</p>
+        </div>
+        <div className="inline">
           <TextField
             id="charge-price"
             className={clsx(classes.margin, classes.textField)}

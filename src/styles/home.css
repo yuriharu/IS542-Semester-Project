@@ -40,12 +40,12 @@
 }
 
 .charge-pop {
+  align-items: center;
   background-color: #F3D250;
   border-radius: 15px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   height: 30%;
-  justify-content: center;
   left: -100%;
   position: absolute;
   top: 15%;
@@ -60,18 +60,22 @@
   z-index: 100;
 }
 
+.charge-pop > * {
+  position: relative;
+}
+
 #close-button {
   color: #000;
-  flex-basis: 100%;
-  justify-content: flex-end;
-  margin: 10px 10px 0 0;
+  margin: 20px 20px 0 auto;
 }
 
-#flex-area > .logo, #charge-name, #charge-price, #charge-button {
-  flex: 50%;
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-#flex-area > img {
+.inline > img {
   height: 40px;
   width: 40px;
 }
