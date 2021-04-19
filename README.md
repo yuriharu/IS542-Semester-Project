@@ -1,5 +1,5 @@
 # Live Site URL
------ coming soon -----
+http://yuriharu.github.io/IS542-Semester-Project
 
 # Author
 Yuri Haruyama
