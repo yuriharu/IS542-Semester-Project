@@ -11,16 +11,18 @@ import MenuBar from "./navbar.js";
 import Setting from "./setting.js";
 import "./styles/index.css";
 
+const baseUrl = "/IS542-Semester-Project";
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <MenuBar />
       <div id="container">
         <Switch>
-          <Route exact path="/input"><ItemInput /></Route>
-          <Route exact path="/setting"><Setting /></Route>
-          <Route exact path="/analysis"><Analysis /></Route>
-          <Route exact path="/"><Home /></Route>
+          <Route exact path={baseUrl + "/input"}><ItemInput /></Route>
+          <Route exact path={baseUrl + "/setting"}><Setting /></Route>
+          <Route exact path={baseUrl + "/analysis"}><Analysis /></Route>
+          <Route exact path={baseUrl + "/"}><Home /></Route>
         </Switch>
       </div>
     </BrowserRouter>

@@ -11,6 +11,7 @@ import { faBars, faYenSign, faHome, faChartBar, faCog, faTimes}
     from "@fortawesome/free-solid-svg-icons";
 
 function MenuBar() {
+    const baseUrl = "/IS542-Semester-Project";
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = (show) => {
         setSidebar(show);
@@ -34,14 +35,14 @@ function MenuBar() {
                 </div>
                 <NavLink
                     className="menu-button"
-                    to="/"
+                    to={baseUrl + "/"}
                     exact
                 >
                     <FontAwesomeIcon icon={faHome} />
                 </NavLink>
                 <NavLink
                     className="menu-button"
-                    to="/input"
+                    to={baseUrl + "/input"}
                     exact
                 >
                     <FontAwesomeIcon icon={faYenSign} />
@@ -51,7 +52,7 @@ function MenuBar() {
                 <FontAwesomeIcon className="close-button" icon={faTimes} onClick={() => showSidebar(false)} />
                 <NavLink
                     className="bar-button"
-                    to="/analysis"
+                    to={baseUrl + "/analysis"}
                     onClick={() => showSidebar(false)}
                     exact
                 >
@@ -59,7 +60,7 @@ function MenuBar() {
                 </NavLink>
                 <NavLink
                     className="bar-button"
-                    to="/input"
+                    to={baseUrl + "/input"}
                     onClick={() => showSidebar(false)}
                     exact
                 >
@@ -67,7 +68,7 @@ function MenuBar() {
                 </NavLink>
                 <NavLink
                     className="bar-button"
-                    to="/setting"
+                    to={baseUrl + "/setting"}
                     onClick={() => showSidebar(false)}
                     exact
                 >
