@@ -51,7 +51,7 @@ function MenuBar() {
                 <FontAwesomeIcon className="close-button" icon={faTimes} onClick={() => showSidebar(false)} />
                 <NavLink
                     className="bar-button"
-                    to="/"
+                    to="/analysis"
                     onClick={() => showSidebar(false)}
                     exact
                 >
