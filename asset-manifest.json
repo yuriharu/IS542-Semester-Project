@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/IS542-Semester-Project/static/css/main.da65ae41.chunk.css",
-    "main.js": "/IS542-Semester-Project/static/js/main.61028b9d.chunk.js",
-    "main.js.map": "/IS542-Semester-Project/static/js/main.61028b9d.chunk.js.map",
+    "main.css": "/IS542-Semester-Project/static/css/main.7ad57f90.chunk.css",
+    "main.js": "/IS542-Semester-Project/static/js/main.b1557719.chunk.js",
+    "main.js.map": "/IS542-Semester-Project/static/js/main.b1557719.chunk.js.map",
     "runtime-main.js": "/IS542-Semester-Project/static/js/runtime-main.31152258.js",
     "runtime-main.js.map": "/IS542-Semester-Project/static/js/runtime-main.31152258.js.map",
     "static/js/2.974abd70.chunk.js": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js",
     "static/js/2.974abd70.chunk.js.map": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js.map",
     "index.html": "/IS542-Semester-Project/index.html",
-    "static/css/main.da65ae41.chunk.css.map": "/IS542-Semester-Project/static/css/main.da65ae41.chunk.css.map",
+    "static/css/main.7ad57f90.chunk.css.map": "/IS542-Semester-Project/static/css/main.7ad57f90.chunk.css.map",
     "static/js/2.974abd70.chunk.js.LICENSE.txt": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js.LICENSE.txt",
     "static/media/ICOCA.1ff81a74.jpg": "/IS542-Semester-Project/static/media/ICOCA.1ff81a74.jpg",
     "static/media/LINEPay.1cde5c22.png": "/IS542-Semester-Project/static/media/LINEPay.1cde5c22.png",
@@ -21,7 +21,7 @@
   "entrypoints": [
     "static/js/runtime-main.31152258.js",
     "static/js/2.974abd70.chunk.js",
-    "static/css/main.da65ae41.chunk.css",
-    "static/js/main.61028b9d.chunk.js"
+    "static/css/main.7ad57f90.chunk.css",
+    "static/js/main.b1557719.chunk.js"
   ]
 }
