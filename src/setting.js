@@ -119,8 +119,8 @@ function CategorySet() {
             </div>
             <div className={addCat ? "setting-pop active" : "setting-pop"}>
                 <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addCatIndicator(false)}/>
-                <div className="flex-area">
-                    <p className="pop-title">カテゴリー追加</p>
+                <p className="pop-title">カテゴリー追加</p>
+                <div className="inline">
                     <TextField
                         className="pop-value"
                         className={clsx(classes.margin, classes.textField)}
@@ -237,8 +237,8 @@ function PaySet() {
             </div>
             <div className={addPay ? "setting-pop active" : "setting-pop"}>
                 <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addPayIndicator(false)}/>
-                <div className="flex-area">
-                    <p className="pop-title">Pay追加</p>
+                <p className="pop-title">Pay追加</p>
+                <div className="inline">
                     <TextField
                         className="pop-value"
                         className={clsx(classes.margin, classes.textField)}

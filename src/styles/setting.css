@@ -34,12 +34,12 @@
 }
 
 .setting-pop {
+    align-items: center;
     background-color: #F3D250;
     border-radius: 15px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     height: 200px;
-    justify-content: center;
     left: -100%;
     position: absolute;
     top: 30px;
@@ -48,9 +48,20 @@
   }
 
 .setting-pop.active {
-left: 15%;
-transition: 150ms;
-z-index: 100;
+    left: 15%;
+    transition: 150ms;
+    z-index: 100;
+}
+
+#close-button {
+    color: #000;
+    margin: 20px 20px 0 auto;
+}
+
+.inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #reset-button {
