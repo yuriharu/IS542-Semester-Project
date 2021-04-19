@@ -1,21 +1,23 @@
 #Input {
     background-color: #90CCF4;
-    display: flex;
     height: 100vh;
+}
+
+#form-container {
+    align-items: center;
+    display: flex;
     justify-content: center;
 }
 
 .item {
-    align-items: 'center';
     background-color: #ECECEC;
     border-radius: 15px;
     display: flex;
     flex-wrap: wrap;
     height: 30%;
     justify-content: center;
-    margin: 3rem 0 0 0;
+    margin: 100px 0 0 0;
     min-height: 200px;
-    position: relative;
     width: 85%;
 }
 
