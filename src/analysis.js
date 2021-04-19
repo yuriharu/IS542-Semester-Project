@@ -13,9 +13,9 @@ import {
     Label
 } from "./barStyle.js";
 
-const cats = window.localStorage.getItem("Cats Collection").split(",");
-
 function CatBar() {
+    let cats = window.localStorage.getItem("Cats Collection").split(",");
+
     return (
         <Container>
             <h2>カテゴリー別出費</h2>

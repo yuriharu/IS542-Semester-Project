@@ -1,6 +1,8 @@
 #setting {
     background-color: #90CCF4;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .area-box {
@@ -45,8 +47,16 @@
     z-index: -100;
   }
 
-  .setting-pop.active {
-    left: 15%;
-    transition: 150ms;
-    z-index: 100;
-  }
+.setting-pop.active {
+left: 15%;
+transition: 150ms;
+z-index: 100;
+}
+
+#reset-button {
+    align-self: center;
+    background-color: red;
+    color: #ECECEC;
+    font-weight: bold;
+    margin: 50px 0 30px 0;
+}

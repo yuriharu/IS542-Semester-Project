@@ -255,10 +255,19 @@ function PaySet() {
 }
 
 function Setting() {
+    const resetData = () => {
+        if (window.confirm("本当にデータをリセットしますか？")) {
+            window.localStorage.clear();
+        }
+    };
+
     return (
       <div id="setting">
         <CategorySet />
         <PaySet />
+        <Button variant="contained" id="reset-button" onClick={resetData} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+            リセット
+        </Button>
       </div>
     );
 }

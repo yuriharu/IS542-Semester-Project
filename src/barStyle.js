@@ -26,7 +26,7 @@ export const BarChartContainer = styled.div`
 
 export const Chart = css`
   margin-top: 10px;
-  width: 56px;
+  width: 40px;
   &:hover {
     opacity: 0.8;
   }
@@ -36,7 +36,7 @@ export const Chart = css`
 `;
 
 export const Number = styled.span`
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
   color: black;
 `;
@@ -48,7 +48,7 @@ export const MakeBar = styled.div`
 `;
 
 export const BlackLine = styled.div`
-  width: 200%;
+  width: 150%;
   height: 5px;
   background-color: grey;
 `;
