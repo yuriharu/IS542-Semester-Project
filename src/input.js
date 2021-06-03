@@ -95,6 +95,7 @@ function Item() {
             }}
             value={price}
             onChange={handleChangePrice}
+            type="number"   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
           />
           <FormControl className={classes.formControl}>
             <InputLabel id="pay-select">Pay種類</InputLabel>

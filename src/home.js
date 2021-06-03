@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 /***********  IMAGES **********************************/
 import auPay from "./images/auPay.png";
@@ -125,13 +126,27 @@ function Content() {
           <p id="charge-name">{charge}</p>
         </div>
         <div className="inline">
-          <TextField
+          {/* <TextField
             id="charge-price"
             className={clsx(classes.margin, classes.textField)}
             InputProps={{
               startAdornment: <InputAdornment position="start">￥</InputAdornment>,
             }}
             value={price}
+            onChange={handleChangePrice}
+            type="number"   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
+          /> */}
+          <CurrencyTextField
+            id="charge-price"
+            className={clsx(classes.margin, classes.textField)}
+            label="Amount"
+            variant="standard"
+            value={price}
+            currencySymbol="￥"
+            minimumValue="0"
+            outputFormat="string"
+            // decimalCharacter="."
+            digitGroupSeparator=","
             onChange={handleChangePrice}
           />
           <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: "90px", maxHeight: "30px", minWidth: "30px", minHeight: "30px"}}>
