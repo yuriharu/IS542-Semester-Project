@@ -1,5 +1,5 @@
 /***********  REACT ***********************************/
-import clsx from "clsx";
+// import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
@@ -10,9 +10,9 @@ import "./styles/home.css";
 import Button from "@material-ui/core/Button";
 import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+// import InputAdornment from "@material-ui/core/InputAdornment";
+// import { makeStyles } from "@material-ui/core/styles";
+// import TextField from "@material-ui/core/TextField";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 /***********  IMAGES **********************************/
@@ -44,36 +44,41 @@ function ImageMap(keyName) {
   }
 }
 
+function NumberWithCommas(nString) {
+  return nString.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function PayItem(props) {
   let imageTag = ImageMap(props.obj.logo);
+  let balanceWithComma = NumberWithCommas(props.obj.balance)
 
   return (
     <div className="pay-item">
       {imageTag}
       <p>{props.obj.name}</p>
-      <p>￥ {props.obj.balance}</p>
+      <p>￥ {balanceWithComma}</p>
       <p>{props.obj.addBtn}</p>
     </div>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  textField: {
-    width: "40%",
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: "40%",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   margin: {
+//     margin: theme.spacing(1),
+//   },
+//   textField: {
+//     width: "40%",
+//   },
+//   formControl: {
+//     margin: theme.spacing(1),
+//     width: "40%",
+//   },
+// }));
 
 function Content() {
   let pays = window.localStorage.getItem("Pays Collection").split(",");
   let payItems = [];
-  const classes = useStyles();
+  // const classes = useStyles();
   const [charge, setCharge] = useState("");
   const [price, setPrice] = useState("");
   const chargePay = (payName) => {
@@ -88,7 +93,7 @@ function Content() {
 
   const addCharge = () => {
     let currentAmount = localStorage.getItem(charge);
-    let newAmount = Number(currentAmount) + Number(price);
+    let newAmount = Number(currentAmount) + Number(price.replace(",", ""));
     localStorage.setItem(charge, String(newAmount));
     chargePay("");
     chargePrice("");
@@ -134,20 +139,21 @@ function Content() {
             }}
             value={price}
             onChange={handleChangePrice}
-            type="number"   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
+            type="number"
           /> */}
           <CurrencyTextField
             id="charge-price"
-            className={clsx(classes.margin, classes.textField)}
-            label="Amount"
+            // className={clsx(classes.margin, classes.textField)}
+            label=""
             variant="standard"
             value={price}
             currencySymbol="￥"
             minimumValue="0"
             outputFormat="string"
             // decimalCharacter="."
+            decimalPlaces="0"
             digitGroupSeparator=","
-            onChange={handleChangePrice}
+            onChange={handleChangePrice}   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
           />
           <Button variant="contained" id="charge-button" onClick={addCharge} style={{maxWidth: "90px", maxHeight: "30px", minWidth: "30px", minHeight: "30px"}}>
             チャージ

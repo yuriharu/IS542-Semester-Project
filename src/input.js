@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
+import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -65,8 +66,8 @@ function Item() {
   const add = () => {
     let currentPayAmt = localStorage.getItem(pay);
     let currentCatAmt = localStorage.getItem(cat);
-    let newPayAmt = Number(currentPayAmt) - Number(price);
-    let newCatAmt = Number(currentCatAmt) + Number(price);
+    let newPayAmt = Number(currentPayAmt) - Number(price.replace(",", ""));
+    let newCatAmt = Number(currentCatAmt) + Number(price.replace(",", ""));
     localStorage.setItem(pay, String(newPayAmt));
     localStorage.setItem(cat, String(newCatAmt));
     resetAll();
@@ -86,7 +87,7 @@ function Item() {
             value={name}
             onChange={handleChangeName}
           />
-          <TextField
+          {/* <TextField
             label="値段"
             id="item-price"
             className={clsx(classes.margin, classes.textField)}
@@ -96,6 +97,18 @@ function Item() {
             value={price}
             onChange={handleChangePrice}
             type="number"   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
+          /> */}
+          <CurrencyTextField
+            id="charge-price"
+            label=""
+            variant="standard"
+            value={price}
+            currencySymbol="￥"
+            minimumValue="0"
+            outputFormat="string"
+            decimalPlaces="0"
+            digitGroupSeparator=","
+            onChange={handleChangePrice}   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
           />
           <FormControl className={classes.formControl}>
             <InputLabel id="pay-select">Pay種類</InputLabel>
