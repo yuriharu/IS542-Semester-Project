@@ -47,6 +47,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "postcss": ">=8.2.10"
+  },
+  "peerDependencies": {
+    "postcss": ">=8.2.10"
   }
 }
