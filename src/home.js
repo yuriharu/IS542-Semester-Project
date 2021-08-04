@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
+import db from "./firestore.js";
 import initStorage from "./storageInit.js";
 import "./styles/home.css";
 
@@ -11,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import InputAdornment from "@material-ui/core/InputAdornment";
-// import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 // import TextField from "@material-ui/core/TextField";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
@@ -25,16 +26,32 @@ import WAON from "./images/WAON.png";
 import でんでん from "./images/でんでん.jpg";
 import マイカ from "./images/マイカ.jpg";
 
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  textField: {
+    width: "40%",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: "40%",
+  },
+  homeBackground: {
+    backgroundColor: "#F78888",
+  },
+}));
+
 function ImageMap(keyName) {
   const imageMap = {
-    PayPay: <img src={PayPay} alt="PayPay Logo" className="logo" />,
-    LINEPay: <img src={LINEPay} alt="LINEPay Logo" className="logo" />,
-    auPay: <img src={auPay} alt="auPay Logo" className="logo" />,
-    マイカ: <img src={マイカ} alt="マイカ Logo" className="logo" />,
-    WAON: <img src={WAON} alt="WAON Logo" className="logo" />,
-    でんでん: <img src={でんでん} alt="でんでん Logo" className="logo" />,
-    ICOCA: <img src={ICOCA} alt="ICOCA Logo" className="logo" />,
-    NICOPA: <img src={NICOPA} alt="NICOPA Logo" className="logo" />,
+    "PayPay": <img src={PayPay} alt="PayPay Logo" className="logo" />,
+    "LINE Pay": <img src={LINEPay} alt="LINEPay Logo" className="logo" />,
+    "au Pay": <img src={auPay} alt="auPay Logo" className="logo" />,
+    "マイカ": <img src={マイカ} alt="マイカ Logo" className="logo" />,
+    "WAON": <img src={WAON} alt="WAON Logo" className="logo" />,
+    "でんでん": <img src={でんでん} alt="でんでん Logo" className="logo" />,
+    "ICOCA": <img src={ICOCA} alt="ICOCA Logo" className="logo" />,
+    "NICOPA": <img src={NICOPA} alt="NICOPA Logo" className="logo" />,
   }
 
   if (imageMap[keyName]) {
@@ -44,17 +61,12 @@ function ImageMap(keyName) {
   }
 }
 
-function NumberWithCommas(nString) {
-  return nString.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 function PayItem(props) {
-  let imageTag = ImageMap(props.obj.logo);
-  let balanceWithComma = NumberWithCommas(props.obj.balance)
+  let balanceWithComma = props.obj.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <div className="pay-item">
-      {imageTag}
+      {ImageMap(props.obj.name)}
       <p>{props.obj.name}</p>
       <p>￥ {balanceWithComma}</p>
       <p>{props.obj.addBtn}</p>
@@ -62,43 +74,39 @@ function PayItem(props) {
   );
 }
 
-// const useStyles = makeStyles((theme) => ({
-//   margin: {
-//     margin: theme.spacing(1),
-//   },
-//   textField: {
-//     width: "40%",
-//   },
-//   formControl: {
-//     margin: theme.spacing(1),
-//     width: "40%",
-//   },
-// }));
-
 function Content() {
-  let pays = window.localStorage.getItem("Pays Collection").split(",");
+  const classes = useStyles();
+
+  /****************** fetch pay data from firestore ********************/
+  const [pays, setPays] = useState([]);
+  const fetchPays = async() => {
+    setPays([]);
+    const response = db.collection("pay").orderBy("order");
+    const data = await response.get();
+    data.docs.forEach(item => {
+      setPays(pays => [...pays, item.data()]);
+    });
+  };
+  useEffect(() => {
+    fetchPays();
+  }, []);
+
   let payItems = [];
-  // const classes = useStyles();
+  for (let i = 0; i < pays.length; i++) {
+    let itemObj = {
+      image: pays[i].image,
+      name: pays[i].name,
+      balance: pays[i].balance,
+      addBtn: <FontAwesomeIcon icon={faPlusCircle} onClick={() => chargePay(pays[i].name)}/>
+    };
+    payItems.push(<PayItem obj={itemObj} key={i} />);
+  }
+
+  /****************** charge pop up state ********************/
   const [charge, setCharge] = useState("");
-  const [price, setPrice] = useState("");
   const chargePay = (payName) => {
     setCharge(payName);
   }
-  const chargePrice = (priceAmt) => {
-    setPrice(priceAmt);
-  }
-  const handleChangePrice = (event) => {
-    setPrice(event.target.value);
-  };
-
-  const addCharge = () => {
-    let currentAmount = localStorage.getItem(charge);
-    let newAmount = Number(currentAmount) + Number(price.replace(",", ""));
-    localStorage.setItem(charge, String(newAmount));
-    chargePay("");
-    chargePrice("");
-  }
-
   useEffect(() => {
     if (charge !== "") {
         document.getElementById("pay").style.opacity = 0.5;
@@ -107,51 +115,47 @@ function Content() {
     }
   }, [charge]);
 
-  for (let i = 0; i < pays.length; i++) {
-    let itemObj = {
-      logo: pays[i].replace(" ", ""),
-      name: pays[i],
-      balance: localStorage.getItem(pays[i]),
-      addBtn: <FontAwesomeIcon icon={faPlusCircle} onClick={() => chargePay(pays[i])}/>
-    };
-    payItems.push(<PayItem obj={itemObj} key={i} />);
+  /****************** charge price state ********************/
+  const [price, setPrice] = useState("");
+  const chargePrice = (priceAmt) => {
+    setPrice(priceAmt);
   }
-
-  let imageTag = ImageMap(charge.replace(" ", ""));
+  const handleChangePrice = (event) => {
+    setPrice(event.target.value);
+  };
+  const addCharge = async() => {
+    let currentAmount = pays.filter(pay => pay.name === charge)[0].balance;
+    let newAmount = Number(currentAmount) + Number(price.replace(",", ""));
+    await db.collection("pay").doc(charge).update({
+      balance: newAmount,
+    });
+    chargePay("");
+    chargePrice("");
+    fetchPays();
+  }
 
   return (
     <div className="content">
-      <div id="pay">
+      <div id="pay" className={classes.homeBackground}>
         {payItems}
       </div>
       <div className={charge ? "charge-pop active" : "charge-pop"}>
         <FontAwesomeIcon icon={faTimes} id="close-button" onClick={() => chargePay("")}/>
         <div className="inline">
-          {imageTag}
-          <p id="charge-name">{charge}</p>
+          {ImageMap(charge)}
+          <p id="charge-name" className={classes.margin}>{charge}</p>
         </div>
         <div className="inline">
-          {/* <TextField
-            id="charge-price"
-            className={clsx(classes.margin, classes.textField)}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">￥</InputAdornment>,
-            }}
-            value={price}
-            onChange={handleChangePrice}
-            type="number"
-          /> */}
           <CurrencyTextField
             id="charge-price"
-            // className={clsx(classes.margin, classes.textField)}
+            className={classes.formControl}
             label=""
             variant="standard"
             value={price}
             currencySymbol="￥"
             minimumValue="0"
             outputFormat="string"
-            // decimalCharacter="."
-            decimalPlaces="0"
+            decimalPlaces={0}
             digitGroupSeparator=","
             onChange={handleChangePrice}   // CHECK IS THIS CHANGING THE MOBILE KEYBOARD!!!!!????
           />

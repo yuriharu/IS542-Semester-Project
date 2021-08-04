@@ -1,9 +1,9 @@
 #home {
-  background-color: #FFF;
+  background-color: #F78888;
 }
 
 .home-abled {
-  background-color: green;
+  background-color: #F78888;
   opacity: 1;
 }
 
@@ -11,16 +11,12 @@
   opacity: 0.9;
 }
 
-.content {
-  position: relative;
-}
-
 #pay {
   align-items: center;
   background-color: #F78888;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  padding-bottom: 15px;
 }
 
 .pay-item {
