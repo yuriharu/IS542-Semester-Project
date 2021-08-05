@@ -32,7 +32,19 @@ body {
     width: 50%;
 }
 
+/* #droppable-pay {
+    text-align: center;
+} */
+
+.whiteWrap {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .list-item {
+    align-items: center;
     background-color: #ECECEC;
     display: flex;
     flex-direction: row;

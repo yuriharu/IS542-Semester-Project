@@ -1,12 +1,13 @@
 /***********  REACT ***********************************/
 import React, { useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 /***********  COMPONENT *******************************/
 import db from "./firestore.js";
 import "./styles/setting.css";
 
 /***********  FONTAWESONE *****************************/
-import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTimes, faEquals } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /***********  MATERIAL UI *****************************/
@@ -119,16 +120,12 @@ function PaySet() {
     const [paysCollection, setPaysCollection] = useState([]);
     const fetchPaysCollection = async() => {
         setPaysCollection([]);
-        const response = db.collection("pay");
+        const response = db.collection("pay").orderBy("order");
         const data = await response.get();
         data.docs.forEach(item => {
-            const itemObj = {
-                name: item.data().name,
-                deleteBtn: <FontAwesomeIcon icon={faTimes} onClick={() => deletePay(item.data().name)}/>
-            }
-            setPaysCollection(paysCollection => [...paysCollection, <ListItem obj={itemObj} key={"pay-" + item.data().name} />]);
+            setPaysCollection(paysCollection => [...paysCollection, item.data()]);
         });
-      };
+    };
     useEffect(() => {
         fetchPaysCollection();
     }, []);
@@ -168,15 +165,77 @@ function PaySet() {
         }
     };
 
+    /****************** Changing pay order function ********************/
+    const changeOrder = async(payName, srcIndex, desIndex) => {
+        const oneUp = srcIndex > desIndex ? true : false
+        oneUp ?
+        paysCollection.forEach(async(item) => {
+            if (desIndex <= item.order && item.order < srcIndex) {
+                await db.collection("pay").doc(item.name).update({
+                    order: item.order + 1,
+                });
+            }
+        })
+        :
+        paysCollection.forEach(async(item) => {
+            if (srcIndex < item.order && item.order <= desIndex) {
+                await db.collection("pay").doc(item.name).update({
+                    order: item.order - 1,
+                });
+            }
+        })
+
+        await db.collection("pay").doc(payName).update({
+            order: desIndex,
+        });
+        // update React state order for now > when it's refreshed, the backend data is already re-ordered
+        // paysCollection.splice(desIndex, 0, paysCollection.splice(srcIndex, 1)[0])
+        // setPaysCollection(paysCollection);
+        fetchPaysCollection();
+    }
+
     return (
         <div className="content">
-            <div className="area-box">
-                <div className="set-title">Pay</div>
-                <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addPayPopUpIndicator(true)}/></div>
-                {paysCollection.length ?
-                paysCollection
-                : <div>Loading</div>}
-            </div>
+            <DragDropContext 
+                onDragEnd={(param) => {
+                    const payName = param.draggableId;
+                    const srcIndex = param.source.index;
+                    const desIndex = param.destination.index;
+                    changeOrder(payName, srcIndex, desIndex);
+                }}>
+                <div className="area-box">
+                    <div className="set-title">Pay</div>
+                    <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addPayPopUpIndicator(true)}/></div>
+                    {paysCollection.length ?
+                    <Droppable droppableId="droppable-pay">
+                        {(provided, snapshot) => (
+                            <div className="whiteWrap" ref={provided.innerRef} {...provided.droppableProps}> 
+                                {paysCollection.map((item, i) => (
+                                    <Draggable key={item.name} draggableId={item.name} index={i}>
+                                        {(provided, snapshot) => (
+                                            <div 
+                                                className="list-item" 
+                                                ref={provided.innerRef} 
+                                                {...provided.draggableProps} 
+                                                style={{
+                                                    ...provided.draggableProps.style,
+                                                    boxShadow: snapshot.isDragging ? "0 0 .4rem #666" : "none"
+                                                }}
+                                            >
+                                                <div {...provided.dragHandleProps}><FontAwesomeIcon icon={faEquals}/></div>
+                                                <p>{item.name}</p>
+                                                <FontAwesomeIcon icon={faTimes} onClick={() => deletePay(item.name)}/>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                    : <div>Loading</div>}
+                </div>
+            </DragDropContext>
             <div className={addPayPopUp ? "setting-pop active" : "setting-pop"}>
                 <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addPayPopUpIndicator(false)}/>
                 <p className="pop-title">Pay追加</p>
@@ -197,12 +256,11 @@ function PaySet() {
 }
 
 function Setting() {
-
     return (
-      <div id="setting">
-        <CategorySet />
-        <PaySet />
-      </div>
+        <div id="setting">
+            <CategorySet />
+            <PaySet />
+        </div>
     );
 }
 
