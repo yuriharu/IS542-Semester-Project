@@ -1,12 +1,13 @@
 /***********  REACT ***********************************/
 import React, { useState, useEffect } from "react";
-import clsx from "clsx";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 /***********  COMPONENT *******************************/
+import db from "./firestore.js";
 import "./styles/setting.css";
 
 /***********  FONTAWESONE *****************************/
-import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTimes, faEquals } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /***********  MATERIAL UI *****************************/
@@ -15,12 +16,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
+    testField: {
+        margin: theme.spacing(1),
+        width: "40%",
     },
-    textField: {
-      width: "40%",
-    }
 }));
 
 function ListItem(props) {
@@ -33,78 +32,56 @@ function ListItem(props) {
   }
 
 function CategorySet() {
-    const [cats, setCats] = useState([]);
-    const [catListItems, setCatListItems] = useState([]);
-    const [addCat, setAddCat] = useState(false);
-    const [addCatValue, setAddCatValue] = useState("");
     const classes = useStyles();
 
-    const initCats = (catArray) => {
-        for (let i = 0; i < catArray.length; i++) {
-            setCats(cats => [...cats, catArray[i]]);
-        }
-    };
-
-    const initData = () => {
-        setCats([]);
-        initCats(window.localStorage.getItem("Cats Collection").split(","));
-    };
-
+    /****************** fetch category data from firestore ********************/
+    const [catsCollection, setCatsCollection] = useState([]);
+    const fetchCatsCollection = async() => {
+        setCatsCollection([]);
+        const response = db.collection("category");
+        const data = await response.get();
+        data.docs.forEach(item => {
+            const itemObj = {
+                name: item.data().name,
+                deleteBtn: <FontAwesomeIcon icon={faTimes} onClick={() => deleteCat(item.data().name)}/>
+            }
+            setCatsCollection(catsCollection => [...catsCollection, <ListItem obj={itemObj} key={"cat-" + item.data().name} />]);
+        });
+      };
     useEffect(() => {
-        initData();
+        fetchCatsCollection();
     }, []);
 
-    useEffect(() => {
-        setCatListItems([]);
-        for (let i = 0; i < cats.length; i++) {
-            let itemObj = {
-                name: cats[i],
-                deleteBtn: <FontAwesomeIcon icon={faTimes} onClick={() => deleteCat(cats[i])}/>
-            }
-            setCatListItems(catListItems => [...catListItems, <ListItem obj={itemObj} key={"cat-" + i} />]);
-        }
-    }, [cats]);
-
-    const addCatIndicator = (indicator) => {
-        setAddCat(indicator);
-    };
-
+    /****************** Adding category state/function ********************/
+    const [addingCategoryName, setAddingCategoryName] = useState("");
+    const [addCatPopUp, setAddCatPopUp] = useState(false);
     const handleChangeAddCatValue = (event) => {
-        setAddCatValue(event.target.value);
+        setAddingCategoryName(event.target.value);
     };
-
-    const addCatSetting = () => {
-        if (addCatValue !== "") {
-            let currentCatsArray = window.localStorage.getItem("Cats Collection").split(",");
-            currentCatsArray.push(addCatValue);
-            window.localStorage.setItem("Cats Collection", currentCatsArray.toString());
-            window.localStorage.setItem(addCatValue, "0");
-            initData();
+    const addCatPopUpIndicator = (indicator) => {
+        setAddCatPopUp(indicator);
+    };
+    const addNewCategory = async() => {
+        if (addingCategoryName !== "") {
+            const newData = {
+                name: addingCategoryName,
+            }
+            await db.collection('category').doc(addingCategoryName).set(newData);
         }
-        addCatIndicator(false);
-        setAddCatValue("");
+        addCatPopUpIndicator(false);
+        setAddingCategoryName("");
+        fetchCatsCollection();
     }
+    useEffect(() => {
+        const elements = document.getElementsByClassName("area-box");
+        addCatPopUp ? [...elements].forEach(e => e.style.opacity = 0.5) : [...elements].forEach(e => e.style.opacity = 1); 
+    }, [addCatPopUp]);
 
-    const deleteCat = (catName) => {
+    /****************** Deleting category function ********************/
+    const deleteCat = async(catName) => {
         if (window.confirm("本当に" + catName + "を削除しますか? (" + catName + "に関連したデータも削除されます)")) {
-            let currentCatCollectionArray = window.localStorage.getItem("Cats Collection").split(",");
-            let newCatCollectionArray = [];
-            for (let i = 0; i < currentCatCollectionArray.length; i++) {
-                if (currentCatCollectionArray[i] !== catName) {
-                    newCatCollectionArray.push(currentCatCollectionArray[i]);
-                }
-            }
-            window.localStorage.setItem("Cats Collection", newCatCollectionArray.toString());
-            window.localStorage.removeItem(catName);
-
-            //remove from state cats
-            let idx = cats.indexOf(catName);
-            if (idx > -1) {
-                let newCats = cats;
-                newCats.splice(idx, 1);
-                setCats([]);
-                initCats(newCats);
-            }
+            await db.collection("category").doc(catName).delete();
+            fetchCatsCollection();
         }
     };
 
@@ -112,22 +89,22 @@ function CategorySet() {
         <div className="content">
             <div className="area-box">
                 <div className="set-title">カテゴリー</div>
-                <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addCatIndicator(true)}/></div>
-                {catListItems.length ?
-                catListItems
+                <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addCatPopUpIndicator(true)}/></div>
+                {catsCollection.length ?
+                catsCollection
                 : <div>Loading</div>}
             </div>
-            <div className={addCat ? "setting-pop active" : "setting-pop"}>
-                <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addCatIndicator(false)}/>
+            <div className={addCatPopUp ? "setting-pop active" : "setting-pop"}>
+                <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addCatPopUpIndicator(false)}/>
                 <p className="pop-title">カテゴリー追加</p>
                 <div className="inline">
                     <TextField
                         className="pop-value"
-                        className={clsx(classes.margin, classes.textField)}
-                        value={addCatValue}
+                        className={classes.testField}
+                        value={addingCategoryName}
                         onChange={handleChangeAddCatValue}
                     />
-                    <Button variant="contained" className="add-button" onClick={addCatSetting} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+                    <Button variant="contained" className="add-button" onClick={addNewCategory} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
                         追加
                     </Button>
                 </div>
@@ -137,115 +114,139 @@ function CategorySet() {
 }
 
 function PaySet() {
-    const [pays, setPays] = useState([]);
-    const [payListItems, setPayListItems] = useState([]);
-    const [addPay, setAddPay] = useState(false);
-    const [addPayValue, setAddPayValue] = useState("");
     const classes = useStyles();
 
-    const initPays = (payArray) => {
-        for (let i = 0; i < payArray.length; i++) {
-            setPays(pays => [...pays, payArray[i]]);
-        }
+    /****************** fetch pay data from firestore ********************/
+    const [paysCollection, setPaysCollection] = useState([]);
+    const fetchPaysCollection = async() => {
+        setPaysCollection([]);
+        const response = db.collection("pay").orderBy("order");
+        const data = await response.get();
+        data.docs.forEach(item => {
+            setPaysCollection(paysCollection => [...paysCollection, item.data()]);
+        });
     };
-
-    const initData = () => {
-        setPays([]);
-        initPays(window.localStorage.getItem("Pays Collection").split(","));
-    };
-
     useEffect(() => {
-        initData();
+        fetchPaysCollection();
     }, []);
 
-    useEffect(() => {
-        setPayListItems([]);
-        for (let i = 0; i < pays.length; i++) {
-            let itemObj = {
-                name: pays[i],
-                deleteBtn: <FontAwesomeIcon icon={faTimes} onClick={() => deletePay(pays[i])}/>
-            }
-            setPayListItems(payListItems => [...payListItems, <ListItem obj={itemObj} key={"pay-" + i} />]);
-        }
-    }, [pays]);
-
-    useEffect(() => {
-        if (addPay) {
-            let elements = document.getElementsByClassName("area-box");
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].style.opacity = 0.5;
-            }
-        } else {
-            let elements = document.getElementsByClassName("area-box");
-            for (let i = 0; i < elements.length; i++) {
-                elements[i].style.opacity = 1;
-            }
-        }
-    }, [addPay]);
-
-    const addPayIndicator = (indicator) => {
-        setAddPay(indicator);
-    }
-
-    const handleChangeAddPayValue = (event) => {
-        setAddPayValue(event.target.value);
+    /****************** Adding pay state/function ********************/
+    const [addingPayName, setAddingPayName] = useState("");
+    const [addPayPopUp, setAddPayPopUp] = useState(false);
+    const handleChangeAddingPayName = (event) => {
+        setAddingPayName(event.target.value);
     };
-
-    const addPaySetting = () => {
-        if (addPayValue !== "") {
-            let currentPaysArray = window.localStorage.getItem("Pays Collection").split(",");
-            currentPaysArray.push(addPayValue);
-            window.localStorage.setItem("Pays Collection", currentPaysArray.toString());
-            window.localStorage.setItem(addPayValue, "0");
-            initData();
+    const addPayPopUpIndicator = (indicator) => {
+        setAddPayPopUp(indicator);
+    };
+    const addNewPay = async() => {
+        if (addingPayName !== "") {
+            const newData = {
+                name: addingPayName,
+                balance: 0,
+                order: paysCollection.length,
+            }
+            await db.collection('pay').doc(addingPayName).set(newData);
         }
-        addPayIndicator(false);
-        setAddPayValue("");
+        addPayPopUpIndicator(false);
+        setAddingPayName("");
+        fetchPaysCollection();
     }
+    useEffect(() => {
+        const elements = document.getElementsByClassName("area-box");
+        addPayPopUp ? [...elements].forEach(e => e.style.opacity = 0.5) : [...elements].forEach(e => e.style.opacity = 1); 
+    }, [addPayPopUp]);
 
-    const deletePay = (payName) => {
+    /****************** Deleting pay function ********************/
+    const deletePay = async(payName) => {
         if (window.confirm("本当に" + payName + "を削除しますか? (" + payName + "に関連したデータも削除されます)")) {
-            let currentPayCollectionArray = window.localStorage.getItem("Pays Collection").split(",");
-            let newPayCollectionArray = [];
-            for (let i = 0; i < currentPayCollectionArray.length; i++) {
-                if (currentPayCollectionArray[i] !== payName) {
-                    newPayCollectionArray.push(currentPayCollectionArray[i]);
-                }
-            }
-            window.localStorage.setItem("Pays Collection", newPayCollectionArray.toString());
-            window.localStorage.removeItem(payName);
-
-            //remove from state pays
-            let idx = pays.indexOf(payName);
-            if (idx > -1) {
-                let newPays = pays;
-                newPays.splice(idx, 1);
-                setPays([]);
-                initPays(newPays);
-            }
+            await db.collection("pay").doc(payName).delete();
+            fetchPaysCollection();
         }
     };
+
+    /****************** Changing pay order function ********************/
+    const changeOrder = async(payName, srcIndex, desIndex) => {
+        const oneUp = srcIndex > desIndex ? true : false
+        oneUp ?
+        paysCollection.forEach(async(item) => {
+            if (desIndex <= item.order && item.order < srcIndex) {
+                await db.collection("pay").doc(item.name).update({
+                    order: item.order + 1,
+                });
+            }
+        })
+        :
+        paysCollection.forEach(async(item) => {
+            if (srcIndex < item.order && item.order <= desIndex) {
+                await db.collection("pay").doc(item.name).update({
+                    order: item.order - 1,
+                });
+            }
+        })
+
+        await db.collection("pay").doc(payName).update({
+            order: desIndex,
+        });
+        // update React state order for now > when it's refreshed, the backend data is already re-ordered
+        // paysCollection.splice(desIndex, 0, paysCollection.splice(srcIndex, 1)[0])
+        // setPaysCollection(paysCollection);
+        fetchPaysCollection();
+    }
 
     return (
         <div className="content">
-            <div className="area-box">
-                <div className="set-title">Pay</div>
-                <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addPayIndicator(true)}/></div>
-                {payListItems.length ?
-                payListItems
-                : <div>Loading</div>}
-            </div>
-            <div className={addPay ? "setting-pop active" : "setting-pop"}>
-                <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addPayIndicator(false)}/>
+            <DragDropContext 
+                onDragEnd={(param) => {
+                    const payName = param.draggableId;
+                    const srcIndex = param.source.index;
+                    const desIndex = param.destination.index;
+                    changeOrder(payName, srcIndex, desIndex);
+                }}>
+                <div className="area-box">
+                    <div className="set-title">Pay</div>
+                    <div className="add-icon"><FontAwesomeIcon icon={faPlusCircle} onClick={() => addPayPopUpIndicator(true)}/></div>
+                    {paysCollection.length ?
+                    <Droppable droppableId="droppable-pay">
+                        {(provided, snapshot) => (
+                            <div className="whiteWrap" ref={provided.innerRef} {...provided.droppableProps}> 
+                                {paysCollection.map((item, i) => (
+                                    <Draggable key={item.name} draggableId={item.name} index={i}>
+                                        {(provided, snapshot) => (
+                                            <div 
+                                                className="list-item" 
+                                                ref={provided.innerRef} 
+                                                {...provided.draggableProps} 
+                                                style={{
+                                                    ...provided.draggableProps.style,
+                                                    boxShadow: snapshot.isDragging ? "0 0 .4rem #666" : "none"
+                                                }}
+                                            >
+                                                <div {...provided.dragHandleProps}><FontAwesomeIcon icon={faEquals}/></div>
+                                                <p>{item.name}</p>
+                                                <FontAwesomeIcon icon={faTimes} onClick={() => deletePay(item.name)}/>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                    : <div>Loading</div>}
+                </div>
+            </DragDropContext>
+            <div className={addPayPopUp ? "setting-pop active" : "setting-pop"}>
+                <FontAwesomeIcon icon={faTimes} className="close-button" onClick={() => addPayPopUpIndicator(false)}/>
                 <p className="pop-title">Pay追加</p>
                 <div className="inline">
                     <TextField
                         className="pop-value"
-                        className={clsx(classes.margin, classes.textField)}
-                        value={addPayValue}
-                        onChange={handleChangeAddPayValue}
+                        className={classes.testField}
+                        value={addingPayName}
+                        onChange={handleChangeAddingPayName}
                     />
-                    <Button variant="contained" className="add-button" onClick={addPaySetting} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+                    <Button variant="contained" className="add-button" onClick={addNewPay} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
                         追加
                     </Button>
                 </div>
@@ -255,21 +256,11 @@ function PaySet() {
 }
 
 function Setting() {
-    const resetData = () => {
-        if (window.confirm("本当にデータをリセットしますか？")) {
-            window.localStorage.clear();
-        }
-    };
-
     return (
-      <div id="setting">
-        <CategorySet />
-        <PaySet />
-        <Button variant="contained" id="reset-button" onClick={resetData} style={{maxWidth: '90px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
-            リセット
-        </Button>
-        <br></br>
-      </div>
+        <div id="setting">
+            <CategorySet />
+            <PaySet />
+        </div>
     );
 }
 

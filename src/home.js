@@ -1,5 +1,4 @@
 /***********  REACT ***********************************/
-// import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
@@ -124,8 +123,8 @@ function Content() {
     setPrice(event.target.value);
   };
   const addCharge = async() => {
-    let currentAmount = pays.filter(pay => pay.name === charge)[0].balance;
-    let newAmount = Number(currentAmount) + Number(price.replace(",", ""));
+    const currentAmount = pays.filter(pay => pay.name === charge)[0].balance;
+    const newAmount = currentAmount + Number(price.replace(",", ""));
     await db.collection("pay").doc(charge).update({
       balance: newAmount,
     });
