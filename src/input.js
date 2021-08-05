@@ -1,6 +1,5 @@
 /***********  REACT ***********************************/
 import React, { useState, useEffect } from "react";
-import clsx from "clsx";
 
 /***********  COMPONENT *******************************/
 import db from "./firestore.js";
