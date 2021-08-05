@@ -7,6 +7,8 @@ Yuri Haruyama
 # Version Log
 v1: April 2021 - The app is originally created
 
+drug and drop reference: https://www.youtube.com/watch?v=y1w6C9A5a2A
+
 # About the App
 The app helps you to manage your moneys on all prepaid systems at one place.<br>
 The app allows you to do the followings:<br>
