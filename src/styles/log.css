@@ -1,0 +1,46 @@
+#log {
+    background-color: #F3D250;
+    display: flex;
+    flex-direction: column;
+}
+
+#log-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+.month-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    width: 80%;
+}
+
+.cat-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+h1 {
+    color: #696969;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h4 {
+    font-family: monospace;
+    font-weight: lighter;
+}
+
+.log-item {
+    align-items: center;
+    background-color: #ECECEC;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}

@@ -7,7 +7,7 @@ import "./styles/navbar.css";
 
 /***********  FONTAWESONE *****************************/
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faYenSign, faHome, faChartBar, faCog, faTimes}
+import { faBars, faYenSign, faHome, faChartBar, faCog, faTimes, faFileAlt}
     from "@fortawesome/free-solid-svg-icons";
 
 function MenuBar() {
@@ -57,6 +57,14 @@ function MenuBar() {
                     exact
                 >
                     <FontAwesomeIcon icon={faChartBar} /> データ分析
+                </NavLink>
+                <NavLink
+                    className="bar-button"
+                    to={baseUrl + "/log"}
+                    onClick={() => showSidebar(false)}
+                    exact
+                >
+                    <FontAwesomeIcon icon={faFileAlt} /> 履歴
                 </NavLink>
                 <NavLink
                     className="bar-button"
