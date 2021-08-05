@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
 import db from "./firestore.js";
-import initStorage from "./storageInit.js";
 import "./styles/home.css";
 
 /***********  MATERIAL UI *****************************/
@@ -24,6 +23,8 @@ import PayPay from "./images/PayPay.jpg";
 import WAON from "./images/WAON.png";
 import でんでん from "./images/でんでん.jpg";
 import マイカ from "./images/マイカ.jpg";
+import セブン from "./images/セブン.jpeg";
+import Gyomuka from "./images/Gyomuka.png";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -51,6 +52,8 @@ function ImageMap(keyName) {
     "でんでん": <img src={でんでん} alt="でんでん Logo" className="logo" />,
     "ICOCA": <img src={ICOCA} alt="ICOCA Logo" className="logo" />,
     "NICOPA": <img src={NICOPA} alt="NICOPA Logo" className="logo" />,
+    "セブン": <img src={セブン} alt="セブン Logo" className="logo" />,
+    "Gyomuka": <img src={Gyomuka} alt="Gyomuka Logo" className="logo" />,
   }
 
   if (imageMap[keyName]) {
@@ -168,7 +171,6 @@ function Content() {
 }
 
 function Home() {
-  initStorage();
 
   return (
     <div id="home" className="home-abled">

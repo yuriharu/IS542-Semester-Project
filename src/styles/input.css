@@ -1,12 +1,13 @@
 #Input {
     background-color: #90CCF4;
     height: 100vh;
+    padding-top: 10%;
 }
 
 #form-container {
     background-color: #ECECEC;
     border-radius: 15px;
-    margin: 10% 5% 0 5%;
+    margin: 0 5% 0 5%;
     padding: 20px 0 20px 0;
 }
 

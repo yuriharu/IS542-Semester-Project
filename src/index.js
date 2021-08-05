@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Analysis from "./analysis.js";
 import Home from "./home.js";
 import ItemInput from "./input.js";
+import Log from "./log.js";
 import MenuBar from "./navbar.js";
 import Setting from "./setting.js";
 import "./styles/index.css";
@@ -22,6 +23,7 @@ ReactDOM.render(
           <Route exact path={baseUrl + "/input"}><ItemInput /></Route>
           <Route exact path={baseUrl + "/setting"}><Setting /></Route>
           <Route exact path={baseUrl + "/analysis"}><Analysis /></Route>
+          <Route exact path={baseUrl + "/log"}><Log /></Route>
           <Route exact path={baseUrl + "/"}><Home /></Route>
         </Switch>
       </div>

@@ -29,7 +29,7 @@ function ListItem(props) {
         <p>{props.obj.deleteBtn}</p>
       </div>
     );
-  }
+}
 
 function CategorySet() {
     const classes = useStyles();
