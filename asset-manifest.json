@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/IS542-Semester-Project/static/css/main.1d02e473.chunk.css",
-    "main.js": "/IS542-Semester-Project/static/js/main.43c4b8c2.chunk.js",
-    "main.js.map": "/IS542-Semester-Project/static/js/main.43c4b8c2.chunk.js.map",
-    "runtime-main.js": "/IS542-Semester-Project/static/js/runtime-main.31152258.js",
-    "runtime-main.js.map": "/IS542-Semester-Project/static/js/runtime-main.31152258.js.map",
-    "static/js/2.974abd70.chunk.js": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js",
-    "static/js/2.974abd70.chunk.js.map": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js.map",
+    "main.css": "/IS542-Semester-Project/static/css/main.fc69544c.chunk.css",
+    "main.js": "/IS542-Semester-Project/static/js/main.1c50a907.chunk.js",
+    "main.js.map": "/IS542-Semester-Project/static/js/main.1c50a907.chunk.js.map",
+    "runtime-main.js": "/IS542-Semester-Project/static/js/runtime-main.e2b71bbc.js",
+    "runtime-main.js.map": "/IS542-Semester-Project/static/js/runtime-main.e2b71bbc.js.map",
+    "static/js/2.d8060a4b.chunk.js": "/IS542-Semester-Project/static/js/2.d8060a4b.chunk.js",
+    "static/js/2.d8060a4b.chunk.js.map": "/IS542-Semester-Project/static/js/2.d8060a4b.chunk.js.map",
     "index.html": "/IS542-Semester-Project/index.html",
-    "static/css/main.1d02e473.chunk.css.map": "/IS542-Semester-Project/static/css/main.1d02e473.chunk.css.map",
-    "static/js/2.974abd70.chunk.js.LICENSE.txt": "/IS542-Semester-Project/static/js/2.974abd70.chunk.js.LICENSE.txt",
+    "static/css/main.fc69544c.chunk.css.map": "/IS542-Semester-Project/static/css/main.fc69544c.chunk.css.map",
+    "static/js/2.d8060a4b.chunk.js.LICENSE.txt": "/IS542-Semester-Project/static/js/2.d8060a4b.chunk.js.LICENSE.txt",
     "static/media/ICOCA.1ff81a74.jpg": "/IS542-Semester-Project/static/media/ICOCA.1ff81a74.jpg",
     "static/media/LINEPay.1cde5c22.png": "/IS542-Semester-Project/static/media/LINEPay.1cde5c22.png",
     "static/media/NICOPA.466d9b24.png": "/IS542-Semester-Project/static/media/NICOPA.466d9b24.png",
@@ -19,9 +19,9 @@
     "static/media/マイカ.54fe7c01.jpg": "/IS542-Semester-Project/static/media/マイカ.54fe7c01.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.31152258.js",
-    "static/js/2.974abd70.chunk.js",
-    "static/css/main.1d02e473.chunk.css",
-    "static/js/main.43c4b8c2.chunk.js"
+    "static/js/runtime-main.e2b71bbc.js",
+    "static/js/2.d8060a4b.chunk.js",
+    "static/css/main.fc69544c.chunk.css",
+    "static/js/main.1c50a907.chunk.js"
   ]
 }
