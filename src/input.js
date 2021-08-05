@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 /***********  COMPONENT *******************************/
 import db from "./firestore.js";
+import firebase from 'firebase';
 import "./styles/input.css";
 
 /***********  MATERIAL UI *****************************/
@@ -83,6 +84,13 @@ function Item() {
     const newPayAmt = currentPayAmt - Number(price.replace(",", ""));
     await db.collection("pay").doc(pay).update({
       balance: newPayAmt,
+    });
+    await db.collection("log").add({
+      categoryID: cat,
+      date: firebase.firestore.Timestamp.fromDate(new Date()),
+      payID: pay,
+      title: name,
+      total: Number(price.replace(",", "")),
     });
     resetAll();
   };
